@@ -1,0 +1,12 @@
+@import './variables';
+
+body {
+  margin: 0;
+  font-family: 'Inter', 'Helvetica', Arial, sans-serif;
+  background: $gray;
+  color: $text;
+}
+
+* {
+  box-sizing: border-box;
+}
