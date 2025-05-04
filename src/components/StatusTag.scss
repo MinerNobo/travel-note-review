@@ -1,0 +1,19 @@
+.status-tag {
+  display: inline-block;
+  padding: 2px 12px;
+  border-radius: 12px;
+  font-size: 0.95em;
+  font-weight: 500;
+  &.status-approved {
+    background: #e6f9ec;
+    color: #22c55e;
+  }
+  &.status-pending {
+    background: #fef9c3;
+    color: #eab308;
+  }
+  &.status-rejected {
+    background: #fee2e2;
+    color: #ef4444;
+  }
+}

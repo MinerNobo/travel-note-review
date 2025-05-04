@@ -1,0 +1,56 @@
+@use '../styles/variables' as *;
+
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.dashboard-main {
+  flex: 1;
+  padding: 0 0 0 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px 40px 0 40px;
+  background: transparent;
+  margin-bottom: 28px;
+  &__title {
+    font-size: 2rem;
+    font-weight: 600;
+  }
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  &__bell {
+    font-size: 1.3rem;
+    cursor: pointer;
+  }
+  &__avatar {
+    width: 36px;
+    height: 36px;
+    background: #eee;
+    border-radius: 50%;
+    display: inline-block;
+  }
+}
+
+.dashboard-content {
+  padding: 32px 40px;
+  flex: 1;
+  background: $gray;
+}
+
+.dashboard-table-placeholder {
+  background: #fff;
+  border-radius: $border-radius;
+  box-shadow: $shadow;
+  padding: 32px;
+  min-height: 300px;
+}
