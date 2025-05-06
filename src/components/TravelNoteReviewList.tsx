@@ -1,4 +1,3 @@
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Input } from '@/components/ui/input';
@@ -18,13 +17,14 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { useTravelNotes } from '@/hooks/useTravelNotes';
 import { format } from 'date-fns';
 import { CalendarIcon, ChevronLeft, ChevronRight, Search } from 'lucide-react';
 import { useState } from 'react';
 import { RefuseModal } from './RefuseModal';
-import { ReviewActions } from './ReviewActionButton';
+import { ReviewActionButtons } from './ReviewActionButtons';
+import StatusTag from './StatusTag';
 import './TravelNoteReviewList.scss';
-import { useTravelNotes } from '@/hooks/useTravelNotes';
 
 const PAGE_SIZE = 5;
 
@@ -61,7 +61,6 @@ export function TravelNoteReviewList() {
 
   return (
     <div className="review-list-root">
-      {/* 筛选区 */}
       <div className="filter-bar">
         <div className="filter-item">
           <label>状态</label>
@@ -150,24 +149,19 @@ export function TravelNoteReviewList() {
                   <TableCell>{note.author.username}</TableCell>
                   <TableCell>{format(new Date(note.createdAt), 'yyyy-MM-dd HH:mm')}</TableCell>
                   <TableCell>
-                    <Badge
-                      variant="outline"
-                      className={`status-badge status-${note.status.toLowerCase()}`}
-                    >
-                      {note.status === 'APPROVED'
-                        ? '已通过'
-                        : note.status === 'PENDING'
-                          ? '待审核'
-                          : note.status === 'REJECTED'
-                            ? '已拒绝'
-                            : note.status}
-                    </Badge>
+                    <StatusTag status={note.status} />
                   </TableCell>
-                  <TableCell className="text-right">
+                  <TableCell>
                     {userRole === 'ADMIN' || userRole === 'REVIEWER' ? (
-                      <ReviewActions
+                      <ReviewActionButtons
                         role={userRole}
                         status={note.status}
+                        noteId={note.id}
+                        approveLoading={
+                          approveMutation.isPending && approveMutation.variables?.id === note.id
+                        }
+                        rejectLoading={rejectMutation.isPending && currentRejectId === note.id}
+                        deleteLoading={deleteMutation.isPending && currentDeleteId === note.id}
                         onApprove={() => {
                           approveMutation.mutate({ id: note.id });
                         }}
@@ -187,11 +181,6 @@ export function TravelNoteReviewList() {
                               }
                             : undefined
                         }
-                        approveLoading={
-                          approveMutation.isPending && approveMutation.variables?.id === note.id
-                        }
-                        rejectLoading={rejectMutation.isPending && currentRejectId === note.id}
-                        deleteLoading={deleteMutation.isPending && currentDeleteId === note.id}
                       />
                     ) : null}
                   </TableCell>

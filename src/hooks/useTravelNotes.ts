@@ -20,7 +20,7 @@ export function useTravelNotes({
   const token = localStorage.getItem('access_token');
   const queryClient = useQueryClient();
 
-  const { data: reviewListRes } = useQuery({
+  const { data: reviewListData } = useQuery({
     queryKey: ['travelNotes', page, status, keyword, from, to],
     queryFn: () =>
       fetchTravelNotes({
@@ -67,7 +67,7 @@ export function useTravelNotes({
   });
 
   return {
-    reviewListRes,
+    reviewListRes: reviewListData,
     approveMutation,
     rejectMutation,
     deleteMutation,

@@ -1,21 +1,25 @@
 import { Button } from '@/components/ui/button';
-import './ReviewActionButton.scss';
+import { NoteStatus } from '@/types/travelNote';
+import { useNavigate } from '@tanstack/react-router';
 import { Eye } from 'lucide-react';
+import './ReviewActionButtons.scss';
 
 interface ActionsProps {
-  role: string; // "ADMIN" | "REVIEWER"
-  status: string; // "PENDING" | "APPROVED" | "REJECTED"
-  onApprove: () => void;
-  onReject: () => void;
-  onDelete?: () => void;
+  role: string;
+  status: NoteStatus;
+  noteId: string;
   approveLoading?: boolean;
   rejectLoading?: boolean;
   deleteLoading?: boolean;
+  onApprove: () => void;
+  onReject: () => void;
+  onDelete?: () => void;
 }
 
-export function ReviewActions({
+export function ReviewActionButtons({
   role,
   status,
+  noteId,
   onApprove,
   onReject,
   onDelete,
@@ -23,9 +27,16 @@ export function ReviewActions({
   rejectLoading,
   deleteLoading,
 }: ActionsProps) {
+  const navigate = useNavigate();
   return (
     <div className="review-actions">
-      <Button variant="ghost" size="sm">
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={() => {
+          navigate({ to: `/${noteId}` });
+        }}
+      >
         <Eye />
         查看
       </Button>

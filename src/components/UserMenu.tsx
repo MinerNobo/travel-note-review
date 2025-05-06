@@ -6,13 +6,15 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { LogOut } from 'lucide-react';
-import './UserMenu.scss';
 import { API_BASE_URL } from '@/constants';
+import './UserMenu.scss';
+import { useNavigate } from '@tanstack/react-router';
 
 export function UserMenu() {
+  const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   const username = user?.username || '用户';
-  const avatarUrl = user?.avatarUrl || '';
+  const avatarUrl = `${API_BASE_URL}${user?.avatarUrl}` || '';
 
   const handleLogout = async () => {
     const token = localStorage.getItem('access_token');
@@ -32,7 +34,7 @@ export function UserMenu() {
       localStorage.removeItem('access_token');
       localStorage.removeItem('user');
       localStorage.removeItem('isLoggedIn');
-      window.location.href = '/login';
+      navigate({ to: '/login' });
     }
   };
 

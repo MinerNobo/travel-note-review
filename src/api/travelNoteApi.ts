@@ -1,15 +1,16 @@
 import { API_BASE_URL } from '@/constants';
 import { TravelNote } from '@/types/travelNote';
 
-export async function fetchTravelNotes({
-  page,
-  pageSize,
-  status,
-  keyword,
-  from,
-  to,
-  token,
-}: {
+const handleApiError = (resp: Response) => {
+  if (!resp.ok) {
+    if (resp.status === 401) {
+      throw new Error('未授权，请重新登录');
+    }
+    throw new Error('操作失败');
+  }
+};
+
+interface FetchTravelNotesParams {
   page: number;
   pageSize: number;
   status: string;
@@ -17,82 +18,80 @@ export async function fetchTravelNotes({
   from?: string;
   to?: string;
   token: string | null;
-}): Promise<{
+}
+
+interface ReviewActionParams {
+  id: string;
+  token: string | null;
+}
+
+interface RejectReviewParams extends ReviewActionParams {
+  reason: string;
+}
+
+const buildQueryParams = (params: Partial<FetchTravelNotesParams>): URLSearchParams => {
+  const searchParams = new URLSearchParams();
+
+  if (params.page) searchParams.append('page', String(params.page));
+  if (params.pageSize) searchParams.append('pageSize', String(params.pageSize));
+  if (params.status && params.status !== 'all') searchParams.append('status', params.status);
+  if (params.keyword) searchParams.append('keyword', params.keyword);
+  if (params.from) searchParams.append('from', params.from);
+  if (params.to) searchParams.append('to', params.to);
+
+  return searchParams;
+};
+
+const getAuthHeaders = (token: string | null) => ({
+  Authorization: `Bearer ${token}`,
+  'Content-Type': 'application/json',
+});
+
+export async function fetchTravelNotes(params: FetchTravelNotesParams): Promise<{
   total: number;
   page: number;
   pageSize: number;
   data: TravelNote[];
 }> {
-  const params = new URLSearchParams();
-  params.append('page', String(page));
-  params.append('pageSize', String(pageSize));
-  if (status !== 'all') params.append('status', status);
-  if (keyword) params.append('keyword', keyword);
-  if (from) params.append('from', from);
-  if (to) params.append('to', to);
+  const queryParams = buildQueryParams(params);
+  const url = `${API_BASE_URL}/review?${queryParams.toString()}`;
 
-  const resp = await fetch(`${API_BASE_URL}/review?${params.toString()}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+  const resp = await fetch(url, {
+    headers: { Authorization: `Bearer ${params.token}` },
   });
-  console.log(`request ${API_BASE_URL}/review?${params.toString()}`);
 
-  if (!resp.ok) {
-    if (resp.status === 401) {
-      throw new Error('未授权，请重新登录');
-    }
-    throw new Error('获取数据失败');
-  }
+  handleApiError(resp);
+
   return resp.json();
 }
 
-export async function approveReview({ id, token }: { id: string; token: string | null }) {
+export async function approveReview({ id, token }: ReviewActionParams) {
   const resp = await fetch(`${API_BASE_URL}/review/${id}/approve`, {
     method: 'POST',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
+    headers: getAuthHeaders(token),
   });
-  if (!resp.ok) {
-    throw new Error('操作失败');
-  }
+
+  handleApiError(resp);
   return resp.json();
 }
 
-export async function rejectReview({
-  id,
-  reason,
-  token,
-}: {
-  id: string;
-  reason: string;
-  token: string | null;
-}) {
+export async function rejectReview({ id, reason, token }: RejectReviewParams) {
   const resp = await fetch(`${API_BASE_URL}/review/${id}/reject`, {
     method: 'POST',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
+    headers: getAuthHeaders(token),
     body: JSON.stringify({ rejectReason: reason }),
   });
-  if (!resp.ok) {
-    throw new Error('操作失败');
-  }
+
+  handleApiError(resp);
   return resp.json();
 }
 
-export async function deleteReview({ id, token }: { id: string; token: string | null }) {
+export async function deleteReview({ id, token }: ReviewActionParams) {
   const resp = await fetch(`${API_BASE_URL}/review/${id}`, {
     method: 'DELETE',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: { Authorization: `Bearer ${token}` },
   });
-  if (!resp.ok) {
-    throw new Error('删除失败');
-  }
+
+  handleApiError(resp);
   return resp.json();
 }

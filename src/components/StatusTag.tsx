@@ -1,4 +1,3 @@
-import React from 'react';
 import './StatusTag.scss';
 
 const statusMap: Record<string, { text: string; className: string }> = {

@@ -12,9 +12,9 @@ import { Textarea } from '@/components/ui/textarea';
 
 interface RefuseModalProps {
   open: boolean;
+  loading?: boolean;
   onClose: () => void;
   onConfirm: (reason: string) => void;
-  loading?: boolean;
 }
 
 export function RefuseModal({ open, onClose, onConfirm, loading }: RefuseModalProps) {
