@@ -25,4 +25,5 @@ dist-ssr
 
 draft/
 UI/
+.env
 项目需求.md

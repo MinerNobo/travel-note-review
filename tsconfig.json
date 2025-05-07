@@ -12,6 +12,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "types": ["vite/client", "react", "react-dom"],
+    "jsx": "react-jsx"
   }
 }

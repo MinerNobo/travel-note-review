@@ -67,7 +67,7 @@ export function useTravelNotes({
   });
 
   return {
-    reviewListRes: reviewListData,
+    reviewListData,
     approveMutation,
     rejectMutation,
     deleteMutation,

@@ -1,54 +1,73 @@
-# React + TypeScript + Vite
+# 旅行笔记审核系统
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 项目简介
 
-Currently, two official plugins are available:
+这是一个基于 React + TypeScript + Vite 的旅行笔记审核管理系统，旨在提供高效、便捷的旅行笔记审核流程。
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 技术栈
 
-## Expanding the ESLint configuration
+- React 19
+- TypeScript
+- Vite
+- TanStack Query
+- TanStack Router
+- ShadcnUI
+- React Hook Form
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 已完成功能
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
+- [x] 旅行笔记列表展示
+- [x] 多维度筛选（状态、关键字、日期范围）
+- [x] 分页功能
+- [x] 审核操作（通过、拒绝）
+- [x] 管理员删除功能
+- [x] 详细的游记预览
+- [x] 权限控制
+
+## 待完成功能
+
+- [ ] 性能优化
+- [ ] 更多统计图表
+
+## 开发环境准备
+
+### 前置条件
+
+- Node.js (v20+)
+- pnpm (v8+)
+
+### 克隆项目
+
+```bash
+git clone https://github.com/your-username/travel-note-review.git
+cd travel-note-review
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 安装依赖
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-});
+```bash
+pnpm install
 ```
+
+### 运行开发服务器
+
+```bash
+pnpm dev
+```
+
+### 构建生产版本
+
+```bash
+pnpm build
+```
+
+## 代码规范
+
+- 遵循 TypeScript 最佳实践
+- 使用 ESLint 和 Prettier 进行代码风格检查
+- 提交代码前运行 `pnpm lint`
+
+## 联系方式
+
+- 项目负责人：[Dai Liang]
+- 电子邮件：[3313976380@qq.com]

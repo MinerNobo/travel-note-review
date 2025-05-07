@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Input } from '@/components/ui/input';
@@ -20,7 +21,6 @@ import {
 import { useTravelNotes } from '@/hooks/useTravelNotes';
 import { format } from 'date-fns';
 import { CalendarIcon, ChevronLeft, ChevronRight, Search } from 'lucide-react';
-import { useState } from 'react';
 import { RefuseModal } from './RefuseModal';
 import { ReviewActionButtons } from './ReviewActionButtons';
 import StatusTag from './StatusTag';
@@ -46,7 +46,7 @@ export function TravelNoteReviewList() {
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   const userRole = user?.role || '';
 
-  const { reviewListRes, approveMutation, rejectMutation, deleteMutation } = useTravelNotes({
+  const { reviewListData, approveMutation, rejectMutation, deleteMutation } = useTravelNotes({
     page,
     pageSize: PAGE_SIZE,
     status: statusFilter,
@@ -55,8 +55,8 @@ export function TravelNoteReviewList() {
     to: dateRange.to,
   });
 
-  const total = reviewListRes?.total ?? 0;
-  const notesData = reviewListRes?.data ?? [];
+  const total = reviewListData?.total ?? 0;
+  const notesData = reviewListData?.data ?? [];
   const totalPages = Math.ceil(total / PAGE_SIZE);
 
   return (
