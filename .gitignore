@@ -24,6 +24,5 @@ dist-ssr
 *.sw?
 
 draft/
-UI/
 .env
 项目需求.md
