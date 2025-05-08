@@ -26,6 +26,7 @@ export function RefuseModal({ open, onClose, onConfirm, loading }: RefuseModalPr
       return;
     }
     onConfirm(reason);
+    onClose();
   };
 
   return (

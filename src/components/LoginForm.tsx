@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -10,23 +9,25 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { API_BASE_URL } from '@/constants';
+import { useNavigate } from '@tanstack/react-router';
 import { Loader2, ShieldCheck } from 'lucide-react';
-import './LoginForm.scss';
+import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { AccessDeniedAlert } from './AccessDeniedAlert';
-import { API_BASE_URL } from '@/constants';
+import './LoginForm.scss';
 
-type Inputs = {
+interface Inputs {
   username: string;
   password: string;
-};
+}
 
 export function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
   const { register, handleSubmit } = useForm<Inputs>();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [error, setError] = useState('');
-
+  const navigate = useNavigate();
   const onSubmit: SubmitHandler<Inputs> = async data => {
     setIsLoading(true);
     setError('');
@@ -58,8 +59,7 @@ export function LoginForm() {
       localStorage.setItem('access_token', result.access_token);
       localStorage.setItem('user', JSON.stringify(result.user));
       localStorage.setItem('isLoggedIn', '1');
-
-      window.location.href = '/';
+      navigate({ to: '/' });
     } catch (e) {
       setError('网络错误，请检查服务器或网络连接');
       console.log(`登录错误 ${JSON.stringify(e)}`);

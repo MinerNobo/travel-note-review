@@ -1,5 +1,5 @@
-import { TravelNoteReviewList } from '@/components/TravelNoteReviewList';
 import { UserMenu } from '@/components/UserMenu';
+import { TravelNoteReviewList } from '../components/TravelNoteReviewList/index';
 import '../pages/DashboardPage.scss';
 
 export const DashboardPage = () => (

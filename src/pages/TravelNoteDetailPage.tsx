@@ -1,29 +1,16 @@
-import { useParams, useNavigate } from '@tanstack/react-router';
-import { useQuery } from '@tanstack/react-query';
+import { useTravelNoteDetail } from '@/hooks/useTravelNoteDeatail';
+import { useNavigate, useParams } from '@tanstack/react-router';
+import { IoAlertCircleOutline, IoRefreshOutline, IoReturnUpBackOutline } from 'react-icons/io5';
 import TravelNote from '../components/TravelNote';
 import { Button } from '../components/ui/button';
-import { IoReturnUpBackOutline, IoAlertCircleOutline, IoRefreshOutline } from 'react-icons/io5';
 import './TravelNoteDetailPage.scss';
-
-const fetchNoteDetail = async (noteId: string, token: string) => {
-  const res = await fetch(`http://localhost:40000/review/${noteId}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  if (!res.ok) throw new Error('获取游记详情失败');
-  return res.json();
-};
 
 export default function TravelNoteDetailPage() {
   const { noteId } = useParams({ strict: false }) as { noteId: string };
   const navigate = useNavigate();
   const token = localStorage.getItem('access_token') ?? '';
 
-  const { data, isLoading, error, refetch } = useQuery({
-    queryKey: ['note-detail', noteId],
-    queryFn: () => fetchNoteDetail(noteId, token),
-  });
+  const { data, isLoading, error, refetch } = useTravelNoteDetail({ id: noteId, token });
 
   const renderContent = () => {
     if (isLoading) {

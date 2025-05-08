@@ -33,12 +33,6 @@ const TravelNote = ({
 }: TravelNoteProps) => {
   const timeAgo = formatDistanceToNow(new Date(createdAt), { addSuffix: true });
 
-  // medias.forEach(media =>
-  //   console.log(
-  //     `media id ${media.id} type ${media.type} url ${media.url} thumbnailUrl ${media.thumbnailUrl}`
-  //   )
-  // );
-
   return (
     <div className="travel-note">
       <div className="note-header">

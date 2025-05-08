@@ -29,6 +29,11 @@ interface RejectReviewParams extends ReviewActionParams {
   reason: string;
 }
 
+interface FetchNoteDetailParam {
+  id: string;
+  token: string | null;
+}
+
 const buildQueryParams = (params: Partial<FetchTravelNotesParams>): URLSearchParams => {
   const searchParams = new URLSearchParams();
 
@@ -94,4 +99,14 @@ export async function deleteReview({ id, token }: ReviewActionParams) {
 
   handleApiError(resp);
   return resp.json();
+}
+
+export async function fetchNoteDetail({ id, token }: FetchNoteDetailParam) {
+  const res = await fetch(`${API_BASE_URL}/review/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  if (!res.ok) throw new Error('获取游记详情失败');
+  return res.json();
 }
