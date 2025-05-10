@@ -85,7 +85,6 @@ export function FilterBar({
             style={{ minWidth: 500 }}
           >
             <Calendar
-              initialFocus
               mode="range"
               defaultMonth={dateRange.from}
               selected={dateRange}

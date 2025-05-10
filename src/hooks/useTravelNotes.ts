@@ -32,7 +32,7 @@ export function useTravelNotes({
         to: to ? format(to, 'yyyy-MM-dd') : '',
         token: token || '',
       }),
-    staleTime: 1000 * 30,
+    staleTime: 1000 * 5,
   });
 
   const approveMutation = useMutation({

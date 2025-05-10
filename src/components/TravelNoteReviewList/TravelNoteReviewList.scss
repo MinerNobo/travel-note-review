@@ -126,11 +126,27 @@
       margin: 0 2px;
     }
   }
+
   .calendar-popover {
-    min-width: 750px !important;
-    max-width: 90vw;
+    min-width: 700px;
+    max-width: 100%;
+
     .rdp {
-      font-size: 1rem;
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .rdp-months {
+      display: flex;
+      flex-direction: row !important;
+      gap: 2rem;
+    }
+
+    .rdp-month {
+      width: auto;
     }
   }
 }

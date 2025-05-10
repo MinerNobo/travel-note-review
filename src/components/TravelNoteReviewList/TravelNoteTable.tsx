@@ -11,7 +11,7 @@ import { TravelNote } from '@/types/travelNote';
 import { ReviewActionButtons } from '../ReviewActionButtons';
 import StatusTag from '../StatusTag';
 import { UseMutationResult } from '@tanstack/react-query';
-
+import './TravelNoteReviewList.scss';
 interface TravelNoteTableProps {
   notesData: TravelNote[];
   userRole: string;
