@@ -5,10 +5,10 @@ import { FilterBar } from './FilterBar';
 import { Pagination } from './Pagination';
 import './TravelNoteReviewList.scss';
 import { TravelNoteTable } from './TravelNoteTable';
-
-const PAGE_SIZE = 5;
+import { useResponsivePageSize } from '@/hooks/useResponsivePageSize';
 
 export function TravelNoteReviewList() {
+  const pageSize = useResponsivePageSize();
   const [page, setPage] = useState(1);
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
@@ -28,7 +28,7 @@ export function TravelNoteReviewList() {
 
   const { reviewListData, approveMutation, rejectMutation, deleteMutation } = useTravelNotes({
     page,
-    pageSize: PAGE_SIZE,
+    pageSize: pageSize,
     status: statusFilter,
     keyword: searchQuery,
     from: dateRange.from,
@@ -37,7 +37,7 @@ export function TravelNoteReviewList() {
 
   const total = reviewListData?.total ?? 0;
   const notesData = reviewListData?.data ?? [];
-  const totalPages = Math.ceil(total / PAGE_SIZE);
+  const totalPages = Math.ceil(total / pageSize);
 
   const handleReject = (id: string) => {
     setCurrentRejectId(id);
@@ -87,7 +87,7 @@ export function TravelNoteReviewList() {
         <Pagination
           page={page}
           totalPages={totalPages}
-          pageSize={PAGE_SIZE}
+          pageSize={pageSize}
           totalItems={total}
           onPageChange={setPage}
         />

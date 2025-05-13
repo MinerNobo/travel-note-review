@@ -21,7 +21,7 @@ export function useTravelNotes({
   const queryClient = useQueryClient();
 
   const { data: reviewListData } = useQuery({
-    queryKey: ['travelNotes', page, status, keyword, from, to],
+    queryKey: ['travelNotes', pageSize, page, status, keyword, from, to],
     queryFn: () =>
       fetchTravelNotes({
         page,
