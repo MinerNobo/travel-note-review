@@ -1,5 +1,5 @@
 import { API_BASE_URL } from '@/constants';
-import { TravelNote } from '@/types/travelNote';
+import { TravelNote } from '@/types';
 
 const handleApiError = (resp: Response) => {
   if (!resp.ok) {

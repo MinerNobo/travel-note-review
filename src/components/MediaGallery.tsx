@@ -1,5 +1,5 @@
-import { API_BASE_URL } from '@/constants';
-import { MediaItem } from '@/types/travelNote';
+import { BASE_URL } from '@/constants';
+import { MediaItem } from '@/types';
 import { Image, Video } from 'lucide-react';
 import { useState } from 'react';
 import './MediaGallery.scss';
@@ -22,11 +22,11 @@ const MediaGallery = ({ media }: MediaGalleryProps) => {
     <div className="media-gallery">
       <div className="media-main">
         {activeMedia.type === 'IMAGE' ? (
-          <img src={`${API_BASE_URL}${activeMedia.url}`} alt="Travel media" />
+          <img src={`${BASE_URL}${activeMedia.url}`} alt="Travel media" />
         ) : (
-          <video controls poster={`${API_BASE_URL}${activeMedia.thumbnailUrl}`}>
-            <source src={`${API_BASE_URL}${activeMedia.url}`} type="video/mp4" />
-            Your browser does not support video playback.
+          <video controls poster={`${BASE_URL}${activeMedia.thumbnailUrl}`}>
+            <source src={`${BASE_URL}${activeMedia.url}`} type="video/mp4" />
+            您的浏览器不支持视频播放
           </video>
         )}
         <div className="media-index">
@@ -44,7 +44,7 @@ const MediaGallery = ({ media }: MediaGalleryProps) => {
               onClick={() => setActiveIndex(index)}
               className={`media-thumb${index === activeIndex ? ' active' : ''}`}
             >
-              <img src={`${API_BASE_URL}${item.thumbnailUrl}`} alt={`Thumbnail ${index}`} />
+              <img src={`${BASE_URL}${item.thumbnailUrl}`} alt={`Thumbnail ${index}`} />
               {item.type === 'VIDEO' && <Video className="video-icon" />}
             </div>
           ))}
