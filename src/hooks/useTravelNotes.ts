@@ -1,6 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { format } from 'date-fns';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 import { approveReview, deleteReview, fetchTravelNotes, rejectReview } from '@/api/travelNoteApi';
+import { convertToUTCDate, convertUTCToShanghaiTime } from '@/lib/utils';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export function useTravelNotes({
   page,
@@ -22,16 +28,22 @@ export function useTravelNotes({
 
   const { data: reviewListData } = useQuery({
     queryKey: ['travelNotes', pageSize, page, status, keyword, from, to],
-    queryFn: () =>
-      fetchTravelNotes({
+    queryFn: async () => {
+      const result = await fetchTravelNotes({
         page,
         pageSize,
         status,
         keyword,
-        from: from ? format(from, 'yyyy-MM-dd') : '',
-        to: to ? format(to, 'yyyy-MM-dd') : '',
+        from: convertToUTCDate(from),
+        to: convertToUTCDate(to),
         token: token || '',
-      }),
+      });
+
+      return {
+        ...result,
+        data: convertUTCToShanghaiTime(result.data),
+      };
+    },
     staleTime: 1000 * 5,
   });
 
