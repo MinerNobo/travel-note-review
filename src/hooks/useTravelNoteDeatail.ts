@@ -1,9 +1,9 @@
 import { fetchNoteDetail } from '@/api/travelNoteApi';
+import { convertUTCToShanghaiTime } from '@/lib/utils';
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
-import { convertUTCToShanghaiTime } from '@/lib/utils';
+import utc from 'dayjs/plugin/utc';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);

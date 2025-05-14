@@ -1,4 +1,4 @@
-import { TravelNote } from '@/types/travelNote';
+import { TravelNote } from '@/types';
 import { clsx, type ClassValue } from 'clsx';
 import dayjs from 'dayjs';
 import { twMerge } from 'tailwind-merge';
