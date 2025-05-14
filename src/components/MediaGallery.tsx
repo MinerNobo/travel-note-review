@@ -44,7 +44,7 @@ const MediaGallery = ({ media }: MediaGalleryProps) => {
               onClick={() => setActiveIndex(index)}
               className={`media-thumb${index === activeIndex ? ' active' : ''}`}
             >
-              <img src={`${BASE_URL}${item.thumbnailUrl}`} alt={`Thumbnail ${index}`} />
+              <img src={`${BASE_URL}${item.thumbnailUrl || item.url}`} alt={`Thumbnail ${index}`} />
               {item.type === 'VIDEO' && <Video className="video-icon" />}
             </div>
           ))}
