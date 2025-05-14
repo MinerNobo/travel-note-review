@@ -7,7 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { TravelNote } from '@/types/travelNote';
+import { TravelNote } from '@/types';
 import { ReviewActionButtons } from '../ReviewActionButtons';
 import StatusTag from '../StatusTag';
 import { UseMutationResult } from '@tanstack/react-query';

@@ -1,4 +1,4 @@
-import { MediaItem, NoteStatus } from '@/types/travelNote';
+import { MediaItem, NoteStatus } from '@/types';
 import { formatDistanceToNow } from 'date-fns';
 import MediaGallery from './MediaGallery';
 import StatusTag from './StatusTag';

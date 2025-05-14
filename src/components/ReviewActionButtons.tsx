@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { NoteStatus } from '@/types/travelNote';
+import { NoteStatus } from '@/types';
 import { useNavigate } from '@tanstack/react-router';
 import { Eye } from 'lucide-react';
 import './ReviewActionButtons.scss';
