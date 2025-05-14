@@ -7,7 +7,7 @@ import './TravelNote.scss';
 interface Author {
   id: string;
   username: string;
-  avatarUrl: string;
+  avatarUrl: string | null;
 }
 
 interface TravelNoteProps {
@@ -37,7 +37,9 @@ const TravelNote = ({
     <div className="travel-note">
       <div className="note-header">
         <div className="author-info">
-          <img src={author.avatarUrl} alt={author.username} className="avatar" />
+          {author.avatarUrl && (
+            <img src={author.avatarUrl} alt={author.username} className="avatar" />
+          )}
           <div>
             <div className="username">{author.username}</div>
             <div className="created-at">{timeAgo}</div>

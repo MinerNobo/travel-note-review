@@ -2,6 +2,12 @@ import { TravelNote } from '@/types';
 import { clsx, type ClassValue } from 'clsx';
 import dayjs from 'dayjs';
 import { twMerge } from 'tailwind-merge';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+
+// 初始化 dayjs 插件
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
